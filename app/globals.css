@@ -10,11 +10,14 @@
   --muted: #676963;
   --green: #66836d;
   --green-dark: #283d31;
+  --green-soft: #edf4ea;
   --wood: #a9794d;
   --sand: #dfd1bd;
   --cream: #fffdfa;
   --panel: rgba(255, 253, 250, 0.78);
   --panel-strong: rgba(255, 253, 250, 0.94);
+  --price-card: linear-gradient(135deg, #fffdfa 0%, #efe6d9 100%);
+  --cta: #185c33;
   --input: rgba(255, 253, 250, 0.78);
   --shadow-soft: 0 24px 80px rgba(35, 30, 24, 0.12);
   --shadow-crisp: 0 1px 0 rgba(255, 255, 255, 0.72) inset, 0 18px 42px rgba(35, 30, 24, 0.09);
@@ -22,19 +25,22 @@
 
 .dark {
   color-scheme: dark;
-  --background: #101312;
+  --background: #0f1511;
   --foreground: #f4f1ea;
-  --surface: #181c1a;
-  --surface-strong: #202622;
-  --line: #323a35;
-  --muted: #a5aaa2;
-  --green: #8aa58f;
-  --green-dark: #dce8dd;
+  --surface: #17201a;
+  --surface-strong: #1d281f;
+  --line: #2d3b31;
+  --muted: #a7b3aa;
+  --green: #8fb397;
+  --green-dark: #b7d6bd;
+  --green-soft: rgba(143, 179, 151, 0.14);
   --wood: #d0a16d;
   --sand: #3a332b;
   --cream: #171b19;
   --panel: rgba(23, 27, 25, 0.78);
   --panel-strong: rgba(23, 27, 25, 0.94);
+  --price-card: linear-gradient(135deg, #17201a 0%, #101510 100%);
+  --cta: #2f8c55;
   --input: rgba(28, 33, 30, 0.86);
   --shadow-soft: 0 24px 80px rgba(0, 0, 0, 0.36);
   --shadow-crisp: 0 1px 0 rgba(255, 255, 255, 0.08) inset, 0 18px 42px rgba(0, 0, 0, 0.28);
@@ -58,11 +64,7 @@ html {
 body {
   min-height: 100vh;
   margin: 0;
-  background:
-    linear-gradient(180deg, color-mix(in srgb, var(--surface) 42%, transparent), transparent 520px),
-    radial-gradient(circle at 12% 8%, color-mix(in srgb, var(--wood) 16%, transparent), transparent 30%),
-    radial-gradient(circle at 88% 0%, color-mix(in srgb, var(--green) 13%, transparent), transparent 34%),
-    var(--background);
+  background: linear-gradient(180deg, var(--background) 0%, color-mix(in srgb, var(--surface) 28%, var(--background)) 100%);
   color: var(--foreground);
   font-family: var(--font-body), sans-serif;
 }

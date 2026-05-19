@@ -1,80 +1,66 @@
 "use client";
 
 import Image from "next/image";
-import { Check } from "lucide-react";
-import type { CurrencyCode, Product } from "@/types/product";
+import { Check, Plus } from "lucide-react";
 import { formatPrice } from "@/lib/pricing";
-import type { Copy } from "@/lib/localization";
+import type { CurrencyCode, Option } from "@/types/product";
 
 type ProductCardProps = {
-  product: Product;
-  selected: boolean;
+  product: Option;
   currency: CurrencyCode;
-  copy: Copy;
+  selected: boolean;
   onSelect: () => void;
 };
 
 export function ProductCard({
   product,
-  selected,
   currency,
-  copy,
+  selected,
   onSelect,
 }: ProductCardProps) {
-  const Icon = product.icon;
-
   return (
-    <button
-      type="button"
-      onClick={onSelect}
-      className={`group w-full rounded-2xl border p-4 text-left transition duration-300 ${
+    <article
+      className={`relative overflow-hidden rounded-2xl border bg-[var(--panel-strong)] transition ${
         selected
-          ? "border-[var(--green)] bg-[var(--panel-strong)] shadow-[0_18px_45px_rgba(48,76,59,0.13)]"
-          : "border-[var(--line)] bg-[var(--input)] hover:-translate-y-0.5 hover:border-[var(--green)]"
+          ? "border-[var(--green-dark)] shadow-[0_18px_44px_rgba(48,76,59,0.16)]"
+          : "border-[var(--line)] hover:-translate-y-0.5 hover:border-[var(--green)]"
       }`}
-      aria-pressed={selected}
     >
-      <div className="flex items-start justify-between gap-4">
-        <span className="relative flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-[var(--line)] bg-[var(--surface)] shadow-sm">
-          <Image
-            src={product.imageSrc}
-            alt=""
-            fill
-            sizes="64px"
-            className="object-contain p-2"
-          />
-          <span
-            className="absolute bottom-1 right-1 flex h-6 w-6 items-center justify-center rounded-full text-white shadow-sm"
-            style={{ backgroundColor: product.accent }}
-          >
-            <Icon size={13} strokeWidth={2} />
-          </span>
+      {selected ? (
+        <span className="absolute right-4 top-4 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-[var(--green-dark)] text-[var(--background)]">
+          <Check size={17} />
         </span>
-        <span
-          className={`flex h-7 w-7 items-center justify-center rounded-full border transition ${
-            selected
-              ? "border-[var(--green)] bg-[var(--green)] text-[var(--background)]"
-              : "border-[var(--line)] text-transparent group-hover:text-[var(--muted)]"
-          }`}
-        >
-          <Check size={15} />
-        </span>
+      ) : null}
+      <div className="relative h-36 bg-[var(--surface)]">
+        <Image
+          src={product.thumbnail}
+          alt=""
+          fill
+          sizes="(min-width: 1024px) 220px, 45vw"
+          className="object-contain p-5"
+        />
       </div>
-
-      <div className="mt-5">
-        <p className="text-base font-bold tracking-[-0.02em] text-[var(--foreground)]">
-          {product.name}
-        </p>
-        <p className="mt-1 text-sm font-semibold text-[var(--green-dark)]">
-          {formatPrice(product.priceMonthly, currency)} / {copy.month}
-        </p>
-        <p className="mt-3 text-sm leading-6 text-[var(--muted)]">
+      <div className="p-4">
+        <h4 className="text-sm font-extrabold">{product.name}</h4>
+        <p className="mt-1 text-xs font-semibold leading-5 text-[var(--muted)]">
           {product.description}
         </p>
-        <p className="mt-4 text-xs font-bold uppercase tracking-[0.16em] text-[var(--muted)]">
-          {product.vibe}
+        <p className="mt-2 text-sm font-extrabold text-[var(--green-dark)]">
+          {formatPrice(product.price, currency)}/mo
         </p>
+        <button
+          type="button"
+          onClick={onSelect}
+          className={`mt-4 inline-flex w-full items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm font-extrabold transition ${
+            selected
+              ? "bg-[var(--green-dark)] text-[var(--background)]"
+              : "bg-[var(--surface)] text-[var(--foreground)] hover:bg-[var(--green-soft)]"
+          }`}
+        >
+          {selected ? <Check size={16} /> : <Plus size={16} />}
+          {selected ? "Selected" : "Select"}
+        </button>
       </div>
-    </button>
+    </article>
   );
 }

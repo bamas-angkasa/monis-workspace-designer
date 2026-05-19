@@ -1,45 +1,52 @@
-import type { LucideIcon } from "lucide-react";
+export type TemplateId = "workstation" | "living-room" | "garage";
+
+export type SlotCategory =
+  | "furniture"
+  | "display"
+  | "lighting"
+  | "decor"
+  | "vehicle"
+  | "storage"
+  | "gear"
+  | "accessories";
 
 export type ProductCategory = "desk" | "chair" | "accessory";
-export type TemplateId = "workstation" | "game-room" | "garage" | "living-room";
-export type CurrencyCode =
-  | "USD"
-  | "EUR"
-  | "JPY"
-  | "IDR"
-  | "THB"
-  | "RUB"
-  | "CNY"
-  | "VND";
 export type LanguageCode = "en" | "id" | "th" | "vi" | "zh" | "ja";
 
-export type Product = {
+export type CurrencyCode = "IDR" | "USD" | "EUR" | "SGD" | "AUD";
+
+export type Option = {
   id: string;
   name: string;
-  category: ProductCategory;
-  templateIds: TemplateId[];
-  priceMonthly: number;
+  category: SlotCategory;
+  price: number;
   description: string;
-  vibe: string;
-  accent: string;
-  imageSrc: string;
-  overlaySrc?: string;
-  icon: LucideIcon;
+  thumbnail: string;
+  previewImageKey: string;
 };
 
-export type WorkspaceConfig = {
-  templateId: TemplateId;
-  deskId?: string;
-  chairId?: string;
-  accessoryIds: string[];
+export type Slot = {
+  id: string;
+  name: string;
+  category: SlotCategory;
+  availableOptions: Option[];
+  required: boolean;
+  defaultOption: string;
 };
 
 export type RoomTemplate = {
   id: TemplateId;
   name: string;
   description: string;
-  imageSrc: string;
-  defaultDeskId?: string;
-  defaultChairId?: string;
-  defaultAccessoryIds: string[];
+  category: string;
+  stylePackages: string[];
+  previewImages: Record<string, string>;
+  slots: Slot[];
+};
+
+export type SelectedOptionsBySlot = Record<string, string>;
+
+export type SetupConfig = {
+  selectedTemplate: TemplateId;
+  selectedOptionsBySlot: SelectedOptionsBySlot;
 };

@@ -14,8 +14,9 @@ const body = Manrope({
 });
 
 export const metadata: Metadata = {
-  title: "Monis Workspace Designer",
-  description: "Design and rent a calm, productive workspace setup in Bali.",
+  title: "Monis Setup Configurator",
+  description:
+    "Curate a premium room setup and request a flexible monthly rental quote.",
 };
 
 export default function RootLayout({
