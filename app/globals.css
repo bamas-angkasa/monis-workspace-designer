@@ -1,18 +1,43 @@
 @import "tailwindcss";
 
 :root {
-  --background: #fafaf8;
-  --foreground: #191c1b;
-  --surface: #f4f1ec;
-  --surface-strong: #ebe5dc;
-  --line: #ded8ce;
-  --muted: #6b6d68;
-  --green: #5f7f67;
-  --green-dark: #304c3b;
-  --wood: #b98a5a;
-  --sand: #e9dccb;
-  --cream: #fffdf7;
-  --shadow-soft: 0 22px 70px rgba(40, 35, 28, 0.11);
+  color-scheme: light;
+  --background: #f7f5ef;
+  --foreground: #171a18;
+  --surface: #f0ede6;
+  --surface-strong: #e6dfd4;
+  --line: #d8d0c3;
+  --muted: #676963;
+  --green: #66836d;
+  --green-dark: #283d31;
+  --wood: #a9794d;
+  --sand: #dfd1bd;
+  --cream: #fffdfa;
+  --panel: rgba(255, 253, 250, 0.78);
+  --panel-strong: rgba(255, 253, 250, 0.94);
+  --input: rgba(255, 253, 250, 0.78);
+  --shadow-soft: 0 24px 80px rgba(35, 30, 24, 0.12);
+  --shadow-crisp: 0 1px 0 rgba(255, 255, 255, 0.72) inset, 0 18px 42px rgba(35, 30, 24, 0.09);
+}
+
+.dark {
+  color-scheme: dark;
+  --background: #101312;
+  --foreground: #f4f1ea;
+  --surface: #181c1a;
+  --surface-strong: #202622;
+  --line: #323a35;
+  --muted: #a5aaa2;
+  --green: #8aa58f;
+  --green-dark: #dce8dd;
+  --wood: #d0a16d;
+  --sand: #3a332b;
+  --cream: #171b19;
+  --panel: rgba(23, 27, 25, 0.78);
+  --panel-strong: rgba(23, 27, 25, 0.94);
+  --input: rgba(28, 33, 30, 0.86);
+  --shadow-soft: 0 24px 80px rgba(0, 0, 0, 0.36);
+  --shadow-crisp: 0 1px 0 rgba(255, 255, 255, 0.08) inset, 0 18px 42px rgba(0, 0, 0, 0.28);
 }
 
 @theme inline {
@@ -34,8 +59,9 @@ body {
   min-height: 100vh;
   margin: 0;
   background:
-    radial-gradient(circle at 12% 8%, rgba(185, 138, 90, 0.13), transparent 30%),
-    radial-gradient(circle at 88% 0%, rgba(95, 127, 103, 0.11), transparent 34%),
+    linear-gradient(180deg, color-mix(in srgb, var(--surface) 42%, transparent), transparent 520px),
+    radial-gradient(circle at 12% 8%, color-mix(in srgb, var(--wood) 16%, transparent), transparent 30%),
+    radial-gradient(circle at 88% 0%, color-mix(in srgb, var(--green) 13%, transparent), transparent 34%),
     var(--background);
   color: var(--foreground);
   font-family: var(--font-body), sans-serif;
@@ -62,8 +88,27 @@ button {
 }
 
 .soft-card {
-  border: 1px solid rgba(25, 28, 27, 0.08);
-  background: rgba(255, 253, 247, 0.76);
+  border: 1px solid color-mix(in srgb, var(--line) 82%, transparent);
+  background: var(--panel);
   box-shadow: var(--shadow-soft);
   backdrop-filter: blur(18px);
+}
+
+.premium-panel {
+  border: 1px solid color-mix(in srgb, var(--line) 88%, transparent);
+  background: var(--panel-strong);
+  box-shadow: var(--shadow-crisp);
+  backdrop-filter: blur(18px);
+}
+
+.control-surface {
+  border: 1px solid var(--line);
+  background: var(--input);
+  color: var(--foreground);
+}
+
+.control-surface:focus {
+  border-color: var(--green);
+  outline: 2px solid color-mix(in srgb, var(--green) 22%, transparent);
+  outline-offset: 2px;
 }
