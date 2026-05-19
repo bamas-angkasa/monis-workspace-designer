@@ -1,4 +1,5 @@
 import { ArrowRight, Sparkles } from "lucide-react";
+import { WorkspaceDesigner } from "@/components/WorkspaceDesigner";
 
 export default function Home() {
   return (
@@ -74,16 +75,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="designer" className="brand-shell pb-24">
-        <div className="soft-card rounded-[28px] p-8 text-center">
-          <p className="text-sm font-bold uppercase tracking-[0.2em] text-[var(--green-dark)]">
-            Designer coming next
-          </p>
-          <h2 className="mt-3 font-serif text-4xl font-semibold tracking-[-0.03em]">
-            The interactive configurator will live here.
-          </h2>
-        </div>
-      </section>
+      <WorkspaceDesigner />
     </main>
   );
 }
