@@ -50,7 +50,6 @@ export function ConfiguratorPage() {
   const [selectedCategory, setSelectedCategory] = useState(
     firstTemplate.slots[0].id,
   );
-  const [selectedPreviewKey, setSelectedPreviewKey] = useState("default");
   const [selectedCurrency, setSelectedCurrency] =
     useState<CurrencyCode>("IDR");
   const [quoteOpen, setQuoteOpen] = useState(false);
@@ -70,8 +69,6 @@ export function ConfiguratorPage() {
   const activeSlot =
     template.slots.find((slot) => slot.id === selectedCategory) ??
     template.slots[0];
-  const previewSrc =
-    template.previewImages[selectedPreviewKey] ?? template.previewImages.default;
 
   function updateRoom(roomId: TemplateId) {
     const nextTemplate =
@@ -87,7 +84,6 @@ export function ConfiguratorPage() {
       ...current,
       [slotId]: option.id,
     }));
-    setSelectedPreviewKey(option.previewImageKey);
   }
 
   function removeProduct(slotId: string) {
@@ -96,7 +92,6 @@ export function ConfiguratorPage() {
       delete next[slotId];
       return next;
     });
-    setSelectedPreviewKey("default");
   }
 
   function completeInquiry() {
@@ -107,9 +102,12 @@ export function ConfiguratorPage() {
   return (
     <main id="workspace-designer" className="min-h-screen">
       <AppHeader />
-      <LivePreview template={template} previewSrc={previewSrc} />
+      <LivePreview
+        template={template}
+        selectedOptionsBySlot={selectedOptionsBySlot}
+      />
 
-      <section className="mx-auto grid w-full max-w-[1880px] gap-8 px-5 py-8 sm:px-8 lg:grid-cols-[360px_minmax(0,1fr)_380px] lg:px-12">
+      <section id="rooms" className="mx-auto grid w-full max-w-[1880px] gap-8 px-5 py-8 sm:px-8 lg:grid-cols-[360px_minmax(0,1fr)_380px] lg:px-12">
         <RoomSelector
           rooms={roomTemplates}
           selectedRoom={selectedRoom}

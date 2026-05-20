@@ -85,3 +85,15 @@ The visual direction follows Monis: calm, minimal, premium, practical, and warm 
 - Team package builder
 - Calendar-based rental duration pricing
 - Admin product management
+
+## Asset Generation Workflow
+
+This project is designed around an asset-first workflow for Monis:
+
+- Generate full room scene backgrounds first
+- Create isolated object assets per category with consistent perspective
+- Produce variant sets for configurator slots
+- Use room previews as reference images for object generation
+
+See `ASSET_GENERATION.md` for a full prompt strategy and example templates.
+See `ASSET_PROMPTS.md` for the ordered workstation prompt sequence.

@@ -12,23 +12,23 @@ export function AppHeader() {
             href="#workspace-designer"
             className="shrink-0 text-2xl font-extrabold tracking-[-0.03em] text-[var(--green-dark)]"
           >
-            monis.rent
+            Monis
           </a>
           <span className="hidden h-5 w-px bg-[var(--line)] sm:block" />
           <p className="hidden text-sm font-bold text-[var(--muted)] sm:block">
-            Workspace Designer
+            Lifestyle room configurator
           </p>
         </div>
 
         <nav className="hidden items-center gap-8 text-sm font-extrabold text-[var(--muted)] lg:flex">
           <a className="border-b-2 border-[var(--green-dark)] py-2 text-[var(--green-dark)]" href="#workspace-designer">
-            Explore
+            Design
           </a>
-          <a className="py-2 transition hover:text-[var(--green-dark)]" href="#gallery">
-            Gallery
+          <a className="py-2 transition hover:text-[var(--green-dark)]" href="#rooms">
+            Rooms
           </a>
-          <a className="py-2 transition hover:text-[var(--green-dark)]" href="#projects">
-            My Projects
+          <a className="py-2 transition hover:text-[var(--green-dark)]" href="#summary">
+            Rent
           </a>
         </nav>
 

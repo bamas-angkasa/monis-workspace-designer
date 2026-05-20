@@ -28,6 +28,7 @@ export const roomTemplates: RoomTemplate[] = [
     description:
       "A warm daylight office scene with a fixed desk composition and refined work essentials.",
     category: "Focus room",
+    backgroundAsset: "/assets/rooms/workstation_empty.png",
     stylePackages: ["Warm Minimal", "Walnut Executive", "Soft Studio"],
     previewImages: {
       default: "/assets/previews/workstation/default.png",
@@ -238,6 +239,7 @@ export const roomTemplates: RoomTemplate[] = [
     description:
       "A cozy media lounge with the TV wall, sofa, table, console, and ambient light locked into a polished composition.",
     category: "Media lounge",
+    backgroundAsset: "/assets/rooms/living_empty.png",
     stylePackages: ["Cozy Walnut", "Cinema Soft", "Guest Villa"],
     previewImages: {
       default: "/assets/previews/living-room/default.png",
@@ -415,6 +417,7 @@ export const roomTemplates: RoomTemplate[] = [
     description:
       "A controlled vehicle-and-gear setup with presets for scooter, car, and organized storage.",
     category: "Mobility room",
+    backgroundAsset: "/assets/rooms/garage_empty.png",
     stylePackages: ["Scooter Only", "Car + Scooter", "Motorcycle Gear"],
     previewImages: {
       default: "/assets/previews/garage/default.png",

@@ -20,7 +20,7 @@ export function SetupSummary({
   onQuote,
 }: SetupSummaryProps) {
   return (
-    <aside className="sticky top-24 rounded-[26px] border border-[var(--line)] bg-[var(--price-card)] p-6 shadow-[0_24px_80px_rgba(35,30,24,0.13)]">
+    <aside id="summary" className="sticky top-24 rounded-[26px] border border-[var(--line)] bg-[var(--price-card)] p-6 shadow-[0_24px_80px_rgba(35,30,24,0.13)]">
       <div className="flex items-start justify-between gap-4">
         <div>
           <p className="text-sm font-extrabold text-[var(--foreground)]">

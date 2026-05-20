@@ -40,6 +40,7 @@ export type RoomTemplate = {
   description: string;
   category: string;
   stylePackages: string[];
+  backgroundAsset: string;
   previewImages: Record<string, string>;
   slots: Slot[];
 };
