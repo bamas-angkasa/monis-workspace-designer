@@ -2,7 +2,9 @@
 
 This file contains the prompt sequence for completing the image set in `ASSET_MANIFEST.md`.
 
-Use the prompts in order. Generate room references first, then use the matching room image as the visual reference for every isolated object in that room.
+Use the prompts in order. Generate furnished room references first, then create empty room plates and full-canvas transparent scene plates from those references.
+
+Important: this workflow is modular, but the final composed preview must look like the furnished reference scene, not like catalog objects pasted onto an empty room.
 
 ## Global Style Lock
 
@@ -34,45 +36,46 @@ Export-ready.
 Save to `public/assets/rooms/workstation_empty.png`.
 
 ```text
-Create an empty premium cozy workstation room background for a configurable workspace designer.
+Create an empty workstation room plate for a modular workspace designer.
 
 STYLE LOCK:
 [paste global style lock]
+
+REFERENCE:
+Use `public/assets/generated/asset-batches/01-workstation-room.png` as the exact furnished composition reference.
 
 ROOM TYPE:
 Modern developer/designer workstation.
 
 SCENE:
-- warm modern room shell
-- clean wall plane
-- subtle built-in shelf area
-- soft window light
-- cable-managed premium studio atmosphere
-- empty central placement zone for desk, chair, monitor, lamp, plant, and storage
+- preserve the same room architecture, camera, focal length, window, wall panels, shelves, floor, rug, right-side cabinetry, artwork, practical lights, and warm ambience from the reference
+- remove only the configurable workstation objects that will become layers
+- keep non-configurable built-ins and decorative room styling if they are part of the reference room identity
+- final empty plate must align pixel-perfectly with the scene-matched object plates
 
 CAMERA:
-Front-facing semi-isometric room view.
-Slight top-down angle.
+Exact same camera as the reference.
 16:9 landscape composition.
+Same pixel dimensions as all scene plates.
 
 LIGHTING:
 Warm daylight mixed with soft practical interior lighting.
 
 IMPORTANT:
-No desk.
-No chair.
-No monitor.
-No lamp.
-No plant in the main placement zone.
-No storage cabinet in the main placement zone.
-Leave clear negative space for layered object assets.
+No configurable desk.
+No configurable chair.
+No configurable monitor.
+No configurable desk lamp.
+No configurable foreground plants.
+No configurable storage item.
+Keep the reference scene's visual richness; do not turn it into a bare showroom.
 No people.
 No text.
 No logo.
 No watermark.
 ```
 
-## 2. Workstation Chair Assets
+## 2. Workstation Chair Scene Plates
 
 Save to:
 
@@ -81,12 +84,14 @@ Save to:
 - `public/assets/objects/workstation/chair/chair-3.png`
 
 ```text
-Generate 3 isolated workstation chair assets for a cozy workspace configurator.
+Generate 3 workstation chair scene plates for a modular workspace configurator.
 
 STYLE LOCK:
 [paste global style lock]
 
-Use the workstation empty room as the perspective and lighting reference.
+REFERENCE:
+Use `public/assets/generated/asset-batches/01-workstation-room.png` as the default composition target.
+Use `public/assets/rooms/workstation_empty.png` as the aligned background plate.
 
 VARIATIONS:
 - chair-1: sage mesh ergonomic executive chair, refined premium silhouette
@@ -94,20 +99,18 @@ VARIATIONS:
 - chair-3: high-back warm gray task chair with stronger support
 
 REQUIREMENTS:
-Transparent PNG.
-Object only.
-No room.
-No floor.
-No wall.
-Identical camera angle.
-Identical scale.
-Chair faces naturally toward a desk.
-Centered composition.
+Transparent PNG scene plate.
+Full 16:9 canvas with the same pixel dimensions as the empty room.
+Chair appears in the exact chair position from the furnished reference.
+Chair faces the desk and overlaps the desk area naturally.
+Include only chair pixels plus natural chair contact shadow/occlusion.
+Do not include room background pixels.
+Do not center the chair.
 No text.
 No watermark.
 ```
 
-## 3. Workstation Desk Assets
+## 3. Workstation Desk Scene Plates
 
 Save to:
 
@@ -116,12 +119,14 @@ Save to:
 - `public/assets/objects/workstation/desk/desk-3.png`
 
 ```text
-Generate 3 isolated workstation desk assets for a cozy workspace configurator.
+Generate 3 workstation desk scene plates for a modular workspace configurator.
 
 STYLE LOCK:
 [paste global style lock]
 
-Use the workstation empty room as the perspective and lighting reference.
+REFERENCE:
+Use `public/assets/generated/asset-batches/01-workstation-room.png` as the default composition target.
+Use `public/assets/rooms/workstation_empty.png` as the aligned background plate.
 
 VARIATIONS:
 - desk-1: walnut low studio desk, premium warm wood finish
@@ -129,19 +134,18 @@ VARIATIONS:
 - desk-3: natural oak sit-stand desk, clean modern mechanism
 
 REQUIREMENTS:
-Transparent PNG.
-Object only.
-No room.
-No floor.
-No wall.
-Identical camera angle.
-Identical scale.
-Centered composition.
+Transparent PNG scene plate.
+Full 16:9 canvas with the same pixel dimensions as the empty room.
+Desk appears in the exact desk position from the furnished reference.
+Include desktop accessories that belong to the desk surface only if they are non-configurable in the reference composition.
+Include only desk pixels plus natural desk contact shadow/occlusion.
+Do not include room background pixels.
+Do not center the desk.
 No text.
 No watermark.
 ```
 
-## 4. Workstation Monitor Assets
+## 4. Workstation Monitor Scene Plates
 
 Save to:
 
@@ -150,12 +154,14 @@ Save to:
 - `public/assets/objects/workstation/monitor/monitor-3.png`
 
 ```text
-Generate 3 isolated workstation monitor assets for a cozy workspace configurator.
+Generate 3 workstation monitor scene plates for a modular workspace configurator.
 
 STYLE LOCK:
 [paste global style lock]
 
-Use the workstation empty room as the perspective and lighting reference.
+REFERENCE:
+Use `public/assets/generated/asset-batches/01-workstation-room.png` as the default composition target.
+Use `public/assets/rooms/workstation_empty.png` as the aligned background plate.
 
 VARIATIONS:
 - monitor-1: single 27 inch 4K productivity monitor
@@ -163,19 +169,18 @@ VARIATIONS:
 - monitor-3: premium ultrawide monitor
 
 REQUIREMENTS:
-Transparent PNG.
-Object only.
-No desk unless structurally necessary for a monitor stand.
-No room.
-No floor.
-Identical camera angle.
-Identical scale.
-Centered composition.
+Transparent PNG scene plate.
+Full 16:9 canvas with the same pixel dimensions as the empty room.
+Monitor appears on the desk at the exact monitor position from the furnished reference.
+Monitor must never float independently in wall space.
+Include only monitor pixels, stand pixels, and local desk occlusion/shadow where needed.
+Do not include room background pixels.
+Do not center the monitor.
 No text.
 No watermark.
 ```
 
-## 5. Workstation Lamp, Plant, and Storage Assets
+## 5. Workstation Lamp, Plant, and Storage Scene Plates
 
 Save to:
 
@@ -187,12 +192,14 @@ Save to:
 - `public/assets/objects/workstation/storage/storage-2.png`
 
 ```text
-Generate 6 isolated workstation support assets for a cozy workspace configurator.
+Generate 6 workstation support scene plates for a modular workspace configurator.
 
 STYLE LOCK:
 [paste global style lock]
 
-Use the workstation empty room as the perspective and lighting reference.
+REFERENCE:
+Use `public/assets/generated/asset-batches/01-workstation-room.png` as the default composition target.
+Use `public/assets/rooms/workstation_empty.png` as the aligned background plate.
 
 VARIATIONS:
 - lamp-1: brushed brass linear task lamp
@@ -203,14 +210,14 @@ VARIATIONS:
 - storage-2: warm low side credenza with hidden cable space
 
 REQUIREMENTS:
-Transparent PNG.
-Object only.
-No room.
-No floor.
-No wall.
-Identical camera angle within each object type.
-Consistent warm lighting.
-Centered composition.
+Transparent PNG scene plate.
+Full 16:9 canvas with the same pixel dimensions as the empty room.
+Each object appears in its final reference-scene position.
+Lamp sits on the desk, not floating.
+Plant and storage align with the left/right reference zones they belong to.
+Include only object pixels plus natural contact shadow/occlusion.
+Do not include room background pixels.
+Do not center objects.
 No text.
 No watermark.
 ```
@@ -257,7 +264,7 @@ No logo.
 No watermark.
 ```
 
-## 7. Living Room Sofa and Table Assets
+## 7. Living Room Sofa and Table Scene Plates
 
 Save to:
 
@@ -267,12 +274,13 @@ Save to:
 - `public/assets/objects/living-room/coffee-table/coffee-2.png`
 
 ```text
-Generate 4 isolated living room furniture assets for a cozy media lounge configurator.
+Generate 4 living room furniture scene plates for a cozy media lounge configurator.
 
 STYLE LOCK:
 [paste global style lock]
 
-Use the living room empty room as the perspective and lighting reference.
+Use the furnished living room reference scene as the composition target.
+Use `public/assets/rooms/living_empty.png` as the aligned background plate.
 
 VARIATIONS:
 - sofa-1: low neutral linen sofa, soft calm lounge style
@@ -281,20 +289,18 @@ VARIATIONS:
 - coffee-2: travertine coffee table with editorial weight
 
 REQUIREMENTS:
-Transparent PNG.
-Object only.
-No room.
-No floor.
-No wall.
-Sofas face naturally toward a TV wall.
-Identical camera angle within each object type.
-Consistent warm lighting.
-Centered composition.
+Transparent PNG scene plate.
+Full 16:9 canvas with the same pixel dimensions as the empty room.
+Each object appears in its exact final scene position.
+Sofas face naturally toward the TV wall.
+Include only object pixels plus natural contact shadow/occlusion.
+Do not include room background pixels.
+Do not center objects.
 No text.
 No watermark.
 ```
 
-## 8. Living Room Media, Seating, and Lighting Assets
+## 8. Living Room Media, Seating, and Lighting Scene Plates
 
 Save to:
 
@@ -308,12 +314,13 @@ Save to:
 - `public/assets/objects/living-room/lighting/lighting-2.png`
 
 ```text
-Generate 8 isolated living room media and accessory assets for a cozy media lounge configurator.
+Generate 8 living room media and accessory scene plates for a cozy media lounge configurator.
 
 STYLE LOCK:
 [paste global style lock]
 
-Use the living room empty room as the perspective and lighting reference.
+Use the furnished living room reference scene as the composition target.
+Use `public/assets/rooms/living_empty.png` as the aligned background plate.
 
 VARIATIONS:
 - tv-1: 55 inch smart TV, balanced media wall centerpiece
@@ -326,14 +333,14 @@ VARIATIONS:
 - lighting-2: subtle ambient LED wash fixture
 
 REQUIREMENTS:
-Transparent PNG.
-Object only.
-No room.
-No floor.
-No wall.
-Identical camera angle within each object type.
-Consistent warm lighting.
-Centered composition.
+Transparent PNG scene plate.
+Full 16:9 canvas with the same pixel dimensions as the empty room.
+Each object appears in its exact final scene position.
+TV and console must align to the media wall/furniture, not float.
+Lighting must preserve its practical glow contribution where it belongs.
+Include only object pixels plus natural contact shadow/occlusion.
+Do not include room background pixels.
+Do not center objects.
 No text.
 No watermark.
 ```
@@ -382,7 +389,7 @@ No logo.
 No watermark.
 ```
 
-## 10. Garage Vehicle Assets
+## 10. Garage Vehicle Scene Plates
 
 Save to:
 
@@ -394,12 +401,13 @@ Save to:
 Create `public/assets/objects/garage/secondary-vehicle/secondary-none.png` separately as a fully transparent blank PNG.
 
 ```text
-Generate 4 isolated garage vehicle assets for a modern garage configurator.
+Generate 4 garage vehicle scene plates for a modern garage configurator.
 
 STYLE LOCK:
 [paste global style lock]
 
-Use the garage empty room as the perspective and lighting reference.
+Use the furnished garage reference scene as the composition target.
+Use `public/assets/rooms/garage_empty.png` as the aligned background plate.
 
 VARIATIONS:
 - main-scooter: premium modern scooter for Bali daily mobility
@@ -408,21 +416,19 @@ VARIATIONS:
 - secondary-scooter: smaller secondary scooter, matching the main scooter style
 
 REQUIREMENTS:
-Transparent PNG.
-Object only.
-No room.
-No floor.
-No wall.
-Identical camera angle.
-Consistent warm industrial lighting.
-Keep the three main vehicles in a similar visual footprint.
-Secondary scooter should be smaller than main vehicles.
-Centered composition.
+Transparent PNG scene plate.
+Full 16:9 canvas with the same pixel dimensions as the empty room.
+Each vehicle appears in its exact final scene position.
+Include only vehicle pixels plus natural tire/contact shadow and local occlusion.
+Do not include room background pixels.
+Keep the three main vehicles in a similar scene footprint.
+Secondary scooter should be smaller than main vehicles and placed in the secondary zone.
+Do not center vehicles.
 No text.
 No watermark.
 ```
 
-## 11. Garage Gear, Storage, and Accessory Assets
+## 11. Garage Gear, Storage, and Accessory Scene Plates
 
 Save to:
 
@@ -436,12 +442,13 @@ Save to:
 - `public/assets/objects/garage/accessories/garage-accessory-2.png`
 
 ```text
-Generate 8 isolated garage gear and accessory assets for a modern garage configurator.
+Generate 8 garage gear and accessory scene plates for a modern garage configurator.
 
 STYLE LOCK:
 [paste global style lock]
 
-Use the garage empty room as the perspective and lighting reference.
+Use the furnished garage reference scene as the composition target.
+Use `public/assets/rooms/garage_empty.png` as the aligned background plate.
 
 VARIATIONS:
 - helmet-1: matte black helmet
@@ -454,14 +461,13 @@ VARIATIONS:
 - garage-accessory-2: premium travel bags
 
 REQUIREMENTS:
-Transparent PNG.
-Object only.
-No room.
-No floor.
-No wall.
-Identical camera angle within each object type.
-Consistent warm industrial lighting.
-Centered composition.
+Transparent PNG scene plate.
+Full 16:9 canvas with the same pixel dimensions as the empty room.
+Each object appears in its exact final scene position.
+Tools align to the wall tool zone; storage aligns to the cabinet/shelf zone; accessories align to the floor/accessory zone.
+Include only object pixels plus natural contact shadow/occlusion.
+Do not include room background pixels.
+Do not center objects.
 No text.
 No watermark.
 ```

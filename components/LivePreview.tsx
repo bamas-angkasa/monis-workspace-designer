@@ -2,45 +2,17 @@
 
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowLeft, Download, MapPin, Share2 } from "lucide-react";
+import { ArrowLeft, Download, Share2 } from "lucide-react";
 import type {
   Option,
   RoomTemplate,
   SelectedOptionsBySlot,
-  TemplateId,
 } from "@/types/product";
 import { ObjectLayer } from "./ObjectLayer";
 
 type LivePreviewProps = {
   template: RoomTemplate;
   selectedOptionsBySlot: SelectedOptionsBySlot;
-};
-
-const sceneLayout: Record<TemplateId, Record<string, { left: string; top: string; width: string; zIndex: number }>> = {
-  workstation: {
-    storage: { left: "10%", top: "58%", width: "22%", zIndex: 10 },
-    plant: { left: "16%", top: "44%", width: "16%", zIndex: 25 },
-    desk: { left: "36%", top: "50%", width: "40%", zIndex: 20 },
-    chair: { left: "44%", top: "62%", width: "24%", zIndex: 35 },
-    monitor: { left: "48%", top: "34%", width: "22%", zIndex: 40 },
-    lamp: { left: "64%", top: "28%", width: "16%", zIndex: 30 },
-  },
-  "living-room": {
-    sofa: { left: "34%", top: "48%", width: "48%", zIndex: 20 },
-    "coffee-table": { left: "46%", top: "66%", width: "24%", zIndex: 35 },
-    tv: { left: "52%", top: "22%", width: "20%", zIndex: 45 },
-    "bean-bag": { left: "18%", top: "60%", width: "18%", zIndex: 25 },
-    console: { left: "42%", top: "24%", width: "16%", zIndex: 40 },
-    lighting: { left: "10%", top: "26%", width: "18%", zIndex: 15 },
-  },
-  garage: {
-    "main-vehicle": { left: "30%", top: "46%", width: "42%", zIndex: 20 },
-    "secondary-vehicle": { left: "10%", top: "60%", width: "20%", zIndex: 15 },
-    helmet: { left: "64%", top: "36%", width: "16%", zIndex: 35 },
-    tools: { left: "62%", top: "54%", width: "18%", zIndex: 30 },
-    storage: { left: "72%", top: "48%", width: "18%", zIndex: 25 },
-    accessories: { left: "56%", top: "68%", width: "20%", zIndex: 40 },
-  },
 };
 
 export function LivePreview({ template, selectedOptionsBySlot }: LivePreviewProps) {
@@ -104,7 +76,7 @@ export function LivePreview({ template, selectedOptionsBySlot }: LivePreviewProp
             </div>
           </div>
 
-          <div className="relative min-h-[520px] overflow-hidden rounded-[30px] border border-white/15 bg-[var(--surface)] shadow-[inset_0_0_80px_rgba(0,0,0,0.12)]">
+          <div className="relative aspect-video overflow-hidden rounded-[30px] border border-white/15 bg-[var(--surface)] shadow-[inset_0_0_80px_rgba(0,0,0,0.12)]">
             <Image
               src={template.backgroundAsset}
               alt={`${template.name} room background`}
@@ -113,53 +85,22 @@ export function LivePreview({ template, selectedOptionsBySlot }: LivePreviewProp
               className="object-cover"
               priority
             />
-            <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(18,22,17,0.06),rgba(16,20,16,0.42))]" />
 
             <AnimatePresence mode="popLayout">
-              {selectedObjects.map(({ slot, option }) => {
-                const position = sceneLayout[template.id]?.[slot.id];
-
-                if (!position) {
-                  return null;
-                }
-
-                return (
-                  <motion.div
-                    key={`${slot.id}-${option.id}`}
-                    initial={{ opacity: 0, scale: 0.92 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.9 }}
-                    transition={{ duration: 0.28, ease: "easeOut" }}
-                    className="absolute overflow-hidden rounded-[28px]"
-                    style={{
-                      left: position.left,
-                      top: position.top,
-                      width: position.width,
-                      aspectRatio: "1 / 1.05",
-                      zIndex: position.zIndex,
-                    }}
-                  >
-                    <ObjectLayer
-                      slotId={slot.id}
-                      optionId={option.id}
-                      optionName={option.name}
-                    />
-                  </motion.div>
-                );
-              })}
+              {selectedObjects.map(({ slot, option }, index) => (
+                <motion.div
+                  key={`${slot.id}-${option.id}`}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.28, ease: "easeOut" }}
+                  className="absolute inset-0"
+                  style={{ zIndex: index + 1 }}
+                >
+                  <ObjectLayer src={option.layerAsset} optionName={option.name} />
+                </motion.div>
+              ))}
             </AnimatePresence>
-
-            <div className="absolute bottom-5 left-5 right-5 rounded-[28px] border border-white/20 bg-white/15 p-4 text-white shadow-[0_16px_40px_rgba(0,0,0,0.16)] backdrop-blur-md">
-              <p className="text-xs font-bold uppercase tracking-[0.24em] text-white/80">
-                Realtime asset composition
-              </p>
-              <p className="mt-2 text-xl font-semibold tracking-[-0.03em]">
-                {template.name} preview
-              </p>
-              <p className="mt-2 text-sm leading-6 text-white/80">
-                Change a slot on the left and see the room update immediately in a layered scene.
-              </p>
-            </div>
           </div>
         </div>
       </div>

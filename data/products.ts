@@ -13,15 +13,41 @@ const thumb = {
 };
 
 function option(
-  data: Omit<Option, "thumbnail"> & { thumbnail?: string },
+  data: Omit<Option, "thumbnail" | "layerAsset"> & {
+    thumbnail?: string;
+    layerAsset?: string;
+  },
 ): Option {
   return {
     ...data,
     thumbnail: data.thumbnail ?? thumb.table1,
+    layerAsset: data.layerAsset ?? "",
   };
 }
 
-export const roomTemplates: RoomTemplate[] = [
+function objectAssetPath(templateId: RoomTemplate["id"], slotId: string, optionId: string) {
+  return `/assets/objects/${templateId}/${slotId}/${optionId}.png`;
+}
+
+function scenePlatePath(templateId: RoomTemplate["id"], slotId: string, optionId: string) {
+  return `/assets/scene-plates/${templateId}/${slotId}/${optionId}.png`;
+}
+
+function withAssetThumbnails(template: RoomTemplate): RoomTemplate {
+  return {
+    ...template,
+    slots: template.slots.map((slot) => ({
+      ...slot,
+      availableOptions: slot.availableOptions.map((item) => ({
+        ...item,
+        thumbnail: objectAssetPath(template.id, slot.id, item.id),
+        layerAsset: scenePlatePath(template.id, slot.id, item.id),
+      })),
+    })),
+  };
+}
+
+const rawRoomTemplates: RoomTemplate[] = [
   {
     id: "workstation",
     name: "Workstation",
@@ -600,6 +626,8 @@ export const roomTemplates: RoomTemplate[] = [
     ],
   },
 ];
+
+export const roomTemplates: RoomTemplate[] = rawRoomTemplates.map(withAssetThumbnails);
 
 export function getTemplateDefaults(template: RoomTemplate) {
   return Object.fromEntries(

@@ -22,6 +22,7 @@ export type Option = {
   price: number;
   description: string;
   thumbnail: string;
+  layerAsset: string;
   previewImageKey: string;
 };
 
