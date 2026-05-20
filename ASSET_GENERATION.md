@@ -1,88 +1,64 @@
 # Monis Asset Generation Workflow
 
-This repo now includes an asset-first prompt strategy tailored for Monis.
-The goal is to generate room backgrounds and isolated object assets separately, with strong perspective and lighting consistency.
+This workflow is the source of truth for completing the image set used by the Monis workspace designer.
+
+The current app supports three configurable rooms:
+
+- Workstation
+- Living Room
+- Garage Space
+
+`gaming_empty.png` exists in `public/assets/rooms`, but gaming is not currently wired into `types/product.ts` or `data/products.ts`, so it is not part of the required completion set.
+
+## Completion Target
+
+The frontend needs:
+
+- 3 empty room background PNGs
+- 40 isolated object PNGs, including one transparent blank asset for `secondary-none`
+- Consistent thumbnail usage for product cards, ideally reusing the same isolated object PNGs
+
+Current generated files in `public/assets`:
+
+- `public/assets/rooms/workstation_empty.png`
+- `public/assets/rooms/living_empty.png`
+- `public/assets/rooms/garage_empty.png`
+- `public/assets/rooms/gaming_empty.png`
+- generic legacy thumbnails under `public/assets/chair`, `public/assets/table`, and `public/assets/monitor`
+
+The missing set is the app-ready object library listed in `ASSET_MANIFEST.md`.
 
 ## Master Pipeline
 
-1. **GLOBAL STYLE LOCK**
-   - Use the same style lock for every prompt.
-   - Ensures consistent mood, lighting, and camera.
+1. Generate empty room backgrounds.
+   - Use the same camera and style lock for all rooms.
+   - Keep the main placement zones clean enough for layered objects.
+   - Do not include the configurable furniture, vehicles, or gear in the empty version.
 
-2. **ROOM SCENE PROMPT**
-   - Generate one room per prompt.
-   - Capture the full room composition and environment.
-   - Use this room as a visual reference for object generation.
+2. Generate isolated object assets by room and slot.
+   - One PNG per option ID from `data/products.ts`.
+   - Transparent background.
+   - Same semi-isometric front-facing perspective.
+   - Same warm soft lighting direction.
 
-3. **OBJECT ASSET PROMPT**
-   - Generate one object category per prompt.
-   - Keep isolated objects only, with transparent background.
+3. Save files using exact manifest paths.
+   - Do not invent alternate names.
+   - The option ID should be visible in the filename.
+   - `secondary-none.png` should be a transparent blank PNG.
 
-4. **VARIANT GENERATION PROMPT**
-   - Generate multiple variations of the same object category.
-   - Lock camera angle, lighting, and scale across variants.
+4. Replace legacy thumbnails after assets are ready.
+   - Product cards currently use generic chair/table/monitor thumbnails.
+   - Once generated, point `thumbnail` values in `data/products.ts` at the matching object PNG.
 
-5. **CONSISTENCY REFERENCE RULE**
-   - Always use the generated room image as reference for subsequent assets.
-   - This prevents inconsistent perspective, lighting, and scale.
+5. Replace SVG placeholder preview layers after assets are ready.
+   - `components/ObjectLayer.tsx` currently draws stylized SVG placeholders.
+   - Once all object PNGs exist, map `slotId + optionId` to the real PNG paths.
 
-## Recommended Workflow
+## Global Style Lock
 
-### Phase 1 — Room backgrounds
-
-Generate these rooms first:
-
-- Workstation
-- Gaming room
-- Living room
-- Garage
-
-These produce the foundation for the whole product.
-
-### Phase 2 — Object asset categories
-
-Generate individual categories separately:
-
-- desks
-- chairs
-- monitors / TVs
-- laptops
-- plants
-- lamps
-- accessories
-- shelves
-- vehicles
-- helmets
-- jackets
-
-### Phase 3 — Configurator-ready variants
-
-Generate multiple consistent variants for each category:
-
-- 4–6 desk styles
-- 4–6 chair styles
-- 3–5 monitor styles
-- 3–4 sofa styles
-- 3–5 car / scooter styles
-
-### Phase 4 — Background removal
-
-If the generator does not output transparency, remove backgrounds automatically using tools like:
-
-- Photoroom
-- Clipdrop
-- remove.bg
-- Photoshop AI
-- Figma auto-remove
-
-## Example Prompt Templates
-
-### Workstation room prompt
+Use this block in every room and object prompt:
 
 ```text
-Create a premium cozy workstation room interior.
-
-STYLE LOCK:
 Premium cozy modern lifestyle aesthetic.
 Semi-isometric 3D render.
 Front-facing room perspective with slight top-down angle.
@@ -100,112 +76,33 @@ No text.
 No logo.
 No watermark.
 Export-ready.
-
-ROOM TYPE:
-Modern developer/designer workstation.
-
-SCENE:
-- wooden desk
-- ergonomic chair
-- dual monitor setup
-- laptop
-- mechanical keyboard
-- desk lamp
-- shelf decor
-- plants
-- warm ambient lighting
-- clean wall decor
-- cable-managed setup
-
-CAMERA:
-Front-facing semi-isometric room view.
-Slight top-down angle.
-16:9 landscape composition.
-
-LIGHTING:
-Warm sunset ambient light mixed with soft practical lighting.
-
-IMPORTANT:
-The room must feel immersive and premium.
-Objects should already be naturally placed.
-Composition must leave enough negative space for future UI overlays.
-No people.
-No text.
-No logo.
-No watermark.
 ```
 
-### Desk asset prompt
+## Generation Order
 
-```text
-Create isolated premium workstation desk assets.
+1. Workstation empty room
+2. Workstation object assets
+3. Living room empty room
+4. Living room object assets
+5. Garage empty room
+6. Garage object assets
+7. Transparent blank asset for `secondary-none`
+8. Cleanup pass for background removal, edge halos, scale, and shadow consistency
+9. Frontend mapping pass
 
-STYLE LOCK:
-... (same style lock)
+## Quality Rules
 
-OBJECT TYPE:
-Modern workstation desks.
+- Export room backgrounds as 16:9 PNGs.
+- Export isolated objects as transparent PNGs.
+- Keep each object centered with enough padding for card thumbnails.
+- Do not include room walls, floors, people, text, logos, or watermarks in object assets.
+- Avoid hard black contact shadows baked into transparent PNGs; use soft shadows only.
+- Keep object scale consistent inside each slot group.
+- For garage vehicles, keep all vehicle assets in the same visual footprint so swapping does not jump.
 
-OUTPUT:
-Generate 4 different desk variations:
-- walnut wood desk
-- black minimalist desk
-- white Scandinavian desk
-- industrial metal + wood desk
+## Reference Files
 
-PERSPECTIVE:
-Semi-isometric front-facing angle matching a cozy workstation room.
-
-LIGHTING:
-Soft warm studio lighting matching the room scene.
-
-BACKGROUND:
-Transparent PNG.
-If transparency is unavailable, use pure white background.
-
-IMPORTANT:
-Object only.
-No room.
-No wall.
-No floor.
-Centered composition.
-Consistent scale.
-Export-ready.
-No text.
-No watermark.
-```
-
-### Variant generation prompt
-
-```text
-Generate 6 ergonomic chair variations for a cozy workstation configurator.
-
-STYLE LOCK:
-... (same style lock)
-
-All chairs must:
-- use identical camera angle
-- use identical lighting direction
-- use identical scale
-- face toward the desk naturally
-- match semi-isometric room perspective
-
-Chair variations:
-- black ergonomic chair
-- white ergonomic chair
-- gaming chair
-- mesh office chair
-- leather executive chair
-- minimalist Scandinavian chair
-
-Transparent background.
-Object only.
-No floor.
-No text.
-```
-
-## Why this works
-
-The key is separating scene generation from object generation. That keeps the asset pipeline clean and avoids the "catalog board" or "collection" failure mode.
-
-Use `lib/assetPrompts.ts` as a reference for generation structure and `ASSET_GENERATION.md` for workflow guidance.
+- `ASSET_MANIFEST.md`: exact file paths and status checklist
+- `ASSET_PROMPTS.md`: prompt library for each required image group
+- `data/products.ts`: option IDs and current product data
+- `components/ObjectLayer.tsx`: current placeholder layer renderer

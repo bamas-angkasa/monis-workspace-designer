@@ -76,7 +76,6 @@ export function ConfiguratorPage() {
     setSelectedRoom(nextTemplate.id);
     setSelectedOptionsBySlot(getTemplateDefaults(nextTemplate));
     setSelectedCategory(nextTemplate.slots[0].id);
-    setSelectedPreviewKey("default");
   }
 
   function selectProduct(slotId: string, option: Option) {

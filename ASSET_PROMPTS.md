@@ -1,14 +1,14 @@
 # Monis Asset Prompt Library
 
-This file contains the ordered prompt sequence for Monis asset generation. It is a text-only prompt library and does not include generated image files.
+This file contains the prompt sequence for completing the image set in `ASSET_MANIFEST.md`.
 
-Use these prompts in order to keep perspective, lighting, and scale consistent.
+Use the prompts in order. Generate room references first, then use the matching room image as the visual reference for every isolated object in that room.
 
-## 1. Workstation Room Scene
+## Global Style Lock
+
+Use this exact style block in every prompt:
 
 ```text
-Create a premium cozy workstation room interior.
-
 STYLE LOCK:
 Premium cozy modern lifestyle aesthetic.
 Semi-isometric 3D render.
@@ -27,22 +27,28 @@ No text.
 No logo.
 No watermark.
 Export-ready.
+```
+
+## 1. Workstation Empty Room
+
+Save to `public/assets/rooms/workstation_empty.png`.
+
+```text
+Create an empty premium cozy workstation room background for a configurable workspace designer.
+
+STYLE LOCK:
+[paste global style lock]
 
 ROOM TYPE:
 Modern developer/designer workstation.
 
 SCENE:
-- wooden desk
-- ergonomic chair
-- dual monitor setup
-- laptop
-- mechanical keyboard
-- desk lamp
-- shelf decor
-- plants
-- warm ambient lighting
-- clean wall decor
-- cable-managed setup
+- warm modern room shell
+- clean wall plane
+- subtle built-in shelf area
+- soft window light
+- cable-managed premium studio atmosphere
+- empty central placement zone for desk, chair, monitor, lamp, plant, and storage
 
 CAMERA:
 Front-facing semi-isometric room view.
@@ -50,482 +56,184 @@ Slight top-down angle.
 16:9 landscape composition.
 
 LIGHTING:
-Warm sunset ambient light mixed with soft practical lighting.
+Warm daylight mixed with soft practical interior lighting.
 
 IMPORTANT:
-The room must feel immersive and premium.
-Objects should already be naturally placed.
-Composition must leave enough negative space for future UI overlays.
+No desk.
+No chair.
+No monitor.
+No lamp.
+No plant in the main placement zone.
+No storage cabinet in the main placement zone.
+Leave clear negative space for layered object assets.
 No people.
 No text.
 No logo.
 No watermark.
 ```
 
-## 2. Workstation Desk Assets
+## 2. Workstation Chair Assets
+
+Save to:
+
+- `public/assets/objects/workstation/chair/chair-1.png`
+- `public/assets/objects/workstation/chair/chair-2.png`
+- `public/assets/objects/workstation/chair/chair-3.png`
 
 ```text
-Create isolated premium workstation desk assets.
+Generate 3 isolated workstation chair assets for a cozy workspace configurator.
 
 STYLE LOCK:
-Premium cozy modern lifestyle aesthetic.
-Semi-isometric 3D render.
-Front-facing room perspective with slight top-down angle.
-Consistent camera height.
-Soft global illumination.
-Warm cinematic lighting.
-Soft realistic shadows.
-Clean modern materials.
-IKEA planner + Sims + Apple-like premium visualization.
-Stylized realistic render, not photorealistic.
-Consistent object scale and proportions.
-Minimal visual noise.
-No people.
-No text.
-No logo.
-No watermark.
-Export-ready.
+[paste global style lock]
 
-OBJECT TYPE:
-Modern workstation desks.
-
-OUTPUT:
-Generate 4 different desk variations:
-- walnut wood desk
-- black minimalist desk
-- white Scandinavian desk
-- industrial metal + wood desk
-
-PERSPECTIVE:
-Semi-isometric front-facing angle matching a cozy workstation room.
-
-LIGHTING:
-Soft warm studio lighting matching the room scene.
-
-BACKGROUND:
-Transparent PNG.
-If transparency is unavailable, use pure white background.
-
-IMPORTANT:
-Object only.
-No room.
-No wall.
-No floor.
-Centered composition.
-Consistent scale.
-Export-ready.
-No text.
-No watermark.
-```
-
-## 3. Workstation Chair Variants
-
-```text
-Generate 6 ergonomic chair variations for a cozy workstation configurator.
-
-STYLE LOCK:
-Premium cozy modern lifestyle aesthetic.
-Semi-isometric 3D render.
-Front-facing room perspective with slight top-down angle.
-Consistent camera height.
-Soft global illumination.
-Warm cinematic lighting.
-Soft realistic shadows.
-Clean modern materials.
-IKEA planner + Sims + Apple-like premium visualization.
-Stylized realistic render, not photorealistic.
-Consistent object scale and proportions.
-Minimal visual noise.
-No people.
-No text.
-No logo.
-No watermark.
-Export-ready.
-
-OBJECT CATEGORY:
-Workstation chairs.
+Use the workstation empty room as the perspective and lighting reference.
 
 VARIATIONS:
-- black ergonomic chair
-- white ergonomic chair
-- gaming chair
-- mesh office chair
-- leather executive chair
-- minimalist Scandinavian chair
+- chair-1: sage mesh ergonomic executive chair, refined premium silhouette
+- chair-2: light neutral mesh task chair, softer daylight look
+- chair-3: high-back warm gray task chair with stronger support
 
 REQUIREMENTS:
-- use identical camera angle
-- use identical lighting direction
-- use identical scale
-- face toward the desk naturally
-- match semi-isometric room perspective
-- transparent background
-- object only
-- no floor
-- no text
-- no watermark
-```
-
-## 4. Workstation Monitor Variants
-
-```text
-Generate 5 premium monitor variations for a cozy workstation setup.
-
-STYLE LOCK:
-Premium cozy modern lifestyle aesthetic.
-Semi-isometric 3D render.
-Front-facing room perspective with slight top-down angle.
-Consistent camera height.
-Soft global illumination.
-Warm cinematic lighting.
-Soft realistic shadows.
-Clean modern materials.
-IKEA planner + Sims + Apple-like premium visualization.
-Stylized realistic render, not photorealistic.
-Consistent object scale and proportions.
-Minimal visual noise.
-No people.
-No text.
-No logo.
-No watermark.
-Export-ready.
-
-OBJECT CATEGORY:
-Monitors.
-
-VARIATIONS:
-- single 27-inch monitor
-- dual monitor setup
-- ultrawide curved monitor
-- sleek black studio monitor
-- slim gray productivity monitor
-
-REQUIREMENTS:
-- use identical camera angle
-- use identical lighting direction
-- use identical scale
-- face toward the desk naturally
-- match semi-isometric room perspective
-- transparent background
-- object only
-- no floor
-- no text
-- no watermark
-```
-
-## 5. Workstation Accessory Assets
-
-```text
-Create isolated premium workstation accessory assets.
-
-STYLE LOCK:
-Premium cozy modern lifestyle aesthetic.
-Semi-isometric 3D render.
-Front-facing room perspective with slight top-down angle.
-Consistent camera height.
-Soft global illumination.
-Warm cinematic lighting.
-Soft realistic shadows.
-Clean modern materials.
-IKEA planner + Sims + Apple-like premium visualization.
-Stylized realistic render, not photorealistic.
-Consistent object scale and proportions.
-Minimal visual noise.
-No people.
-No text.
-No logo.
-No watermark.
-Export-ready.
-
-OBJECT TYPE:
-Workstation accessories.
-
-OUTPUT:
-Generate 6 accessory variations:
-- adjustable desk lamp
-- small desk plant
-- compact mechanical keyboard
-- wireless mouse
-- laptop stand
-- minimal notebook tray
-
-PERSPECTIVE:
-Semi-isometric front-facing angle matching a cozy workstation room.
-
-LIGHTING:
-Soft warm studio lighting matching the room scene.
-
-BACKGROUND:
 Transparent PNG.
-If transparency is unavailable, use pure white background.
-
-IMPORTANT:
 Object only.
 No room.
-No wall.
 No floor.
+No wall.
+Identical camera angle.
+Identical scale.
+Chair faces naturally toward a desk.
 Centered composition.
-Consistent scale.
-Export-ready.
 No text.
 No watermark.
 ```
 
-## 6. Gaming Room Scene
+## 3. Workstation Desk Assets
+
+Save to:
+
+- `public/assets/objects/workstation/desk/desk-1.png`
+- `public/assets/objects/workstation/desk/desk-2.png`
+- `public/assets/objects/workstation/desk/desk-3.png`
 
 ```text
-Create a premium cozy gaming room interior.
+Generate 3 isolated workstation desk assets for a cozy workspace configurator.
 
 STYLE LOCK:
-Premium cozy modern lifestyle aesthetic.
-Semi-isometric 3D render.
-Front-facing room perspective with slight top-down angle.
-Consistent camera height.
-Soft global illumination.
-Warm cinematic lighting.
-Soft realistic shadows.
-Clean modern materials.
-IKEA planner + Sims + Apple-like premium visualization.
-Stylized realistic render, not photorealistic.
-Consistent object scale and proportions.
-Minimal visual noise.
-No people.
+[paste global style lock]
+
+Use the workstation empty room as the perspective and lighting reference.
+
+VARIATIONS:
+- desk-1: walnut low studio desk, premium warm wood finish
+- desk-2: bright oak minimalist desk, lighter Canggu-style surface
+- desk-3: natural oak sit-stand desk, clean modern mechanism
+
+REQUIREMENTS:
+Transparent PNG.
+Object only.
+No room.
+No floor.
+No wall.
+Identical camera angle.
+Identical scale.
+Centered composition.
 No text.
-No logo.
 No watermark.
-Export-ready.
+```
+
+## 4. Workstation Monitor Assets
+
+Save to:
+
+- `public/assets/objects/workstation/monitor/monitor-1.png`
+- `public/assets/objects/workstation/monitor/monitor-2.png`
+- `public/assets/objects/workstation/monitor/monitor-3.png`
+
+```text
+Generate 3 isolated workstation monitor assets for a cozy workspace configurator.
+
+STYLE LOCK:
+[paste global style lock]
+
+Use the workstation empty room as the perspective and lighting reference.
+
+VARIATIONS:
+- monitor-1: single 27 inch 4K productivity monitor
+- monitor-2: clean dual monitor setup
+- monitor-3: premium ultrawide monitor
+
+REQUIREMENTS:
+Transparent PNG.
+Object only.
+No desk unless structurally necessary for a monitor stand.
+No room.
+No floor.
+Identical camera angle.
+Identical scale.
+Centered composition.
+No text.
+No watermark.
+```
+
+## 5. Workstation Lamp, Plant, and Storage Assets
+
+Save to:
+
+- `public/assets/objects/workstation/lamp/lamp-1.png`
+- `public/assets/objects/workstation/lamp/lamp-2.png`
+- `public/assets/objects/workstation/plant/plant-1.png`
+- `public/assets/objects/workstation/plant/plant-2.png`
+- `public/assets/objects/workstation/storage/storage-1.png`
+- `public/assets/objects/workstation/storage/storage-2.png`
+
+```text
+Generate 6 isolated workstation support assets for a cozy workspace configurator.
+
+STYLE LOCK:
+[paste global style lock]
+
+Use the workstation empty room as the perspective and lighting reference.
+
+VARIATIONS:
+- lamp-1: brushed brass linear task lamp
+- lamp-2: slim black architectural task lamp
+- plant-1: small desk plant in a ceramic pot
+- plant-2: tall corner plant in a refined planter
+- storage-1: black ash desk storage cabinet
+- storage-2: warm low side credenza with hidden cable space
+
+REQUIREMENTS:
+Transparent PNG.
+Object only.
+No room.
+No floor.
+No wall.
+Identical camera angle within each object type.
+Consistent warm lighting.
+Centered composition.
+No text.
+No watermark.
+```
+
+## 6. Living Room Empty Room
+
+Save to `public/assets/rooms/living_empty.png`.
+
+```text
+Create an empty premium cozy living room background for a configurable media lounge.
+
+STYLE LOCK:
+[paste global style lock]
 
 ROOM TYPE:
-Immersive gaming lounge with premium setup.
+Modern lounge living room with premium media wall.
 
 SCENE:
-- RGB desk setup
-- high-backed gaming chair
-- ultrawide monitor
-- ambient LED accent lighting
-- cozy poufs or bean bag
-- game-inspired shelf decor
-- headset holder
-- minimalist gear display
-- warm moody atmosphere
-
-CAMERA:
-Front-facing semi-isometric room view.
-Slight top-down angle.
-16:9 landscape composition.
-
-LIGHTING:
-Warm room glow merged with subtle colored accent lighting.
-
-IMPORTANT:
-The room must feel immersive and premium.
-Objects should already be naturally placed.
-Composition must leave enough negative space for future UI overlays.
-No people.
-No text.
-No logo.
-No watermark.
-```
-
-## 7. Gaming Chair Variants
-
-```text
-Generate 5 premium gaming chair variations for a cozy gaming room configurator.
-
-STYLE LOCK:
-Premium cozy modern lifestyle aesthetic.
-Semi-isometric 3D render.
-Front-facing room perspective with slight top-down angle.
-Consistent camera height.
-Soft global illumination.
-Warm cinematic lighting.
-Soft realistic shadows.
-Clean modern materials.
-IKEA planner + Sims + Apple-like premium visualization.
-Stylized realistic render, not photorealistic.
-Consistent object scale and proportions.
-Minimal visual noise.
-No people.
-No text.
-No logo.
-No watermark.
-Export-ready.
-
-OBJECT CATEGORY:
-Gaming chairs.
-
-VARIATIONS:
-- high-backed black gaming chair
-- white race-style gaming chair
-- gray ergonomic task chair with RGB trim
-- leather executive gaming chair
-- plush lounge gaming chair
-
-REQUIREMENTS:
-- use identical camera angle
-- use identical lighting direction
-- use identical scale
-- face toward the desk naturally
-- match semi-isometric room perspective
-- transparent background
-- object only
-- no floor
-- no text
-- no watermark
-```
-
-## 8. Gaming Monitor / Setup Assets
-
-```text
-Create isolated premium gaming monitor and desk setup assets.
-
-STYLE LOCK:
-Premium cozy modern lifestyle aesthetic.
-Semi-isometric 3D render.
-Front-facing room perspective with slight top-down angle.
-Consistent camera height.
-Soft global illumination.
-Warm cinematic lighting.
-Soft realistic shadows.
-Clean modern materials.
-IKEA planner + Sims + Apple-like premium visualization.
-Stylized realistic render, not photorealistic.
-Consistent object scale and proportions.
-Minimal visual noise.
-No people.
-No text.
-No logo.
-No watermark.
-Export-ready.
-
-OBJECT TYPE:
-Gaming monitors and desks.
-
-OUTPUT:
-Generate 5 different assets:
-- ultrawide curved gaming monitor
-- triple-monitor desk setup
-- compact black gaming desk
-- desk with integrated RGB light strip
-- floating shelf monitor stand
-
-PERSPECTIVE:
-Semi-isometric front-facing angle matching a cozy gaming room.
-
-LIGHTING:
-Soft warm studio lighting with subtle colored rim highlights.
-
-BACKGROUND:
-Transparent PNG.
-If transparency is unavailable, use pure white background.
-
-IMPORTANT:
-Object only.
-No room.
-No wall.
-No floor.
-Centered composition.
-Consistent scale.
-Export-ready.
-No text.
-No watermark.
-```
-
-## 9. Gaming Accessory Assets
-
-```text
-Create isolated premium gaming accessory assets.
-
-STYLE LOCK:
-Premium cozy modern lifestyle aesthetic.
-Semi-isometric 3D render.
-Front-facing room perspective with slight top-down angle.
-Consistent camera height.
-Soft global illumination.
-Warm cinematic lighting.
-Soft realistic shadows.
-Clean modern materials.
-IKEA planner + Sims + Apple-like premium visualization.
-Stylized realistic render, not photorealistic.
-Consistent object scale and proportions.
-Minimal visual noise.
-No people.
-No text.
-No logo.
-No watermark.
-Export-ready.
-
-OBJECT TYPE:
-Gaming accessories.
-
-OUTPUT:
-Generate 6 accessory variations:
-- headset stand
-- compact speaker pair
-- RGB keyboard
-- gaming mouse
-- desk-mounted lighting bar
-- ambient display panel
-
-PERSPECTIVE:
-Semi-isometric front-facing angle matching a cozy gaming room.
-
-LIGHTING:
-Soft warm studio lighting with colored accent reflections.
-
-BACKGROUND:
-Transparent PNG.
-If transparency is unavailable, use pure white background.
-
-IMPORTANT:
-Object only.
-No room.
-No wall.
-No floor.
-Centered composition.
-Consistent scale.
-Export-ready.
-No text.
-No watermark.
-```
-
-## 10. Living Room Scene
-
-```text
-Create a premium cozy living room interior.
-
-STYLE LOCK:
-Premium cozy modern lifestyle aesthetic.
-Semi-isometric 3D render.
-Front-facing room perspective with slight top-down angle.
-Consistent camera height.
-Soft global illumination.
-Warm cinematic lighting.
-Soft realistic shadows.
-Clean modern materials.
-IKEA planner + Sims + Apple-like premium visualization.
-Stylized realistic render, not photorealistic.
-Consistent object scale and proportions.
-Minimal visual noise.
-No people.
-No text.
-No logo.
-No watermark.
-Export-ready.
-
-ROOM TYPE:
-Modern lounge living room with premium media setup.
-
-SCENE:
-- low linen sofa
-- media console and wall-mounted TV
-- coffee table
-- floor lamp
-- decorative shelving
-- plants and ceramics
-- warm ambient light
-- textured rug
-- cozy editorial styling
+- clean media wall
+- warm modern lounge shell
+- subtle shelf and decor zones away from the main placement area
+- soft rug or floor texture only if it does not conflict with object placement
+- empty central placement zones for sofa, TV, coffee table, bean bag, console, and lighting
 
 CAMERA:
 Front-facing semi-isometric room view.
@@ -536,212 +244,120 @@ LIGHTING:
 Warm natural light mixed with soft interior glows.
 
 IMPORTANT:
-The room must feel immersive and premium.
-Objects should already be naturally placed.
-Composition must leave enough negative space for future UI overlays.
+No sofa.
+No TV.
+No coffee table.
+No bean bag.
+No console.
+No floor lamp in the main placement zone.
+Leave clear negative space for layered object assets.
 No people.
 No text.
 No logo.
 No watermark.
 ```
 
-## 11. Living Room Sofa Variants
+## 7. Living Room Sofa and Table Assets
+
+Save to:
+
+- `public/assets/objects/living-room/sofa/sofa-1.png`
+- `public/assets/objects/living-room/sofa/sofa-2.png`
+- `public/assets/objects/living-room/coffee-table/coffee-1.png`
+- `public/assets/objects/living-room/coffee-table/coffee-2.png`
 
 ```text
-Generate 5 premium sofa variations for a cozy living room configurator.
+Generate 4 isolated living room furniture assets for a cozy media lounge configurator.
 
 STYLE LOCK:
-Premium cozy modern lifestyle aesthetic.
-Semi-isometric 3D render.
-Front-facing room perspective with slight top-down angle.
-Consistent camera height.
-Soft global illumination.
-Warm cinematic lighting.
-Soft realistic shadows.
-Clean modern materials.
-IKEA planner + Sims + Apple-like premium visualization.
-Stylized realistic render, not photorealistic.
-Consistent object scale and proportions.
-Minimal visual noise.
-No people.
-No text.
-No logo.
-No watermark.
-Export-ready.
+[paste global style lock]
 
-OBJECT CATEGORY:
-Living room sofas.
+Use the living room empty room as the perspective and lighting reference.
 
 VARIATIONS:
-- neutral linen sofa
-- charcoal modern sofa
-- beige sectional sofa
-- velvet lounge sofa
-- low-profile Scandinavian sofa
+- sofa-1: low neutral linen sofa, soft calm lounge style
+- sofa-2: walnut leather sofa, deeper tailored premium look
+- coffee-1: round oak coffee table
+- coffee-2: travertine coffee table with editorial weight
 
 REQUIREMENTS:
-- use identical camera angle
-- use identical lighting direction
-- use identical scale
-- face toward the TV naturally
-- match semi-isometric room perspective
-- transparent background
-- object only
-- no floor
-- no text
-- no watermark
-```
-
-## 12. Living Room TV and Table Assets
-
-```text
-Create isolated premium living room media assets.
-
-STYLE LOCK:
-Premium cozy modern lifestyle aesthetic.
-Semi-isometric 3D render.
-Front-facing room perspective with slight top-down angle.
-Consistent camera height.
-Soft global illumination.
-Warm cinematic lighting.
-Soft realistic shadows.
-Clean modern materials.
-IKEA planner + Sims + Apple-like premium visualization.
-Stylized realistic render, not photorealistic.
-Consistent object scale and proportions.
-Minimal visual noise.
-No people.
-No text.
-No logo.
-No watermark.
-Export-ready.
-
-OBJECT TYPE:
-Living room TV and table assets.
-
-OUTPUT:
-Generate 5 different assets:
-- wall-mounted flat-screen TV
-- low media console
-- round oak coffee table
-- marble coffee table
-- floating shelf with decor
-
-PERSPECTIVE:
-Semi-isometric front-facing angle matching a cozy living room.
-
-LIGHTING:
-Soft warm studio lighting with gentle volumetric glow.
-
-BACKGROUND:
 Transparent PNG.
-If transparency is unavailable, use pure white background.
-
-IMPORTANT:
 Object only.
 No room.
-No wall.
 No floor.
+No wall.
+Sofas face naturally toward a TV wall.
+Identical camera angle within each object type.
+Consistent warm lighting.
 Centered composition.
-Consistent scale.
-Export-ready.
 No text.
 No watermark.
 ```
 
-## 13. Living Room Decor Assets
+## 8. Living Room Media, Seating, and Lighting Assets
+
+Save to:
+
+- `public/assets/objects/living-room/tv/tv-1.png`
+- `public/assets/objects/living-room/tv/tv-2.png`
+- `public/assets/objects/living-room/bean-bag/bean-1.png`
+- `public/assets/objects/living-room/bean-bag/bean-2.png`
+- `public/assets/objects/living-room/console/console-1.png`
+- `public/assets/objects/living-room/console/console-2.png`
+- `public/assets/objects/living-room/lighting/lighting-1.png`
+- `public/assets/objects/living-room/lighting/lighting-2.png`
 
 ```text
-Create isolated premium living room decor assets.
+Generate 8 isolated living room media and accessory assets for a cozy media lounge configurator.
 
 STYLE LOCK:
-Premium cozy modern lifestyle aesthetic.
-Semi-isometric 3D render.
-Front-facing room perspective with slight top-down angle.
-Consistent camera height.
-Soft global illumination.
-Warm cinematic lighting.
-Soft realistic shadows.
-Clean modern materials.
-IKEA planner + Sims + Apple-like premium visualization.
-Stylized realistic render, not photorealistic.
-Consistent object scale and proportions.
-Minimal visual noise.
-No people.
-No text.
-No logo.
-No watermark.
-Export-ready.
+[paste global style lock]
 
-OBJECT TYPE:
-Living room decor assets.
+Use the living room empty room as the perspective and lighting reference.
 
-OUTPUT:
-Generate 6 decor variations:
-- tall potted plant
-- floor lamp
-- decorative vase
-- framed wall art
-- side table plant arrangement
-- layered throw pillows
+VARIATIONS:
+- tv-1: 55 inch smart TV, balanced media wall centerpiece
+- tv-2: 65 inch cinema TV, larger premium screen presence
+- bean-1: textured low lounge chair
+- bean-2: oversized relaxed bean bag
+- console-1: compact gaming console bundle
+- console-2: premium sound system
+- lighting-1: warm floor lamp
+- lighting-2: subtle ambient LED wash fixture
 
-PERSPECTIVE:
-Semi-isometric front-facing angle matching a cozy living room.
-
-LIGHTING:
-Soft warm studio lighting with gentle ambient fill.
-
-BACKGROUND:
+REQUIREMENTS:
 Transparent PNG.
-If transparency is unavailable, use pure white background.
-
-IMPORTANT:
 Object only.
 No room.
-No wall.
 No floor.
+No wall.
+Identical camera angle within each object type.
+Consistent warm lighting.
 Centered composition.
-Consistent scale.
-Export-ready.
 No text.
 No watermark.
 ```
 
-## 14. Garage Room Scene
+## 9. Garage Empty Room
+
+Save to `public/assets/rooms/garage_empty.png`.
 
 ```text
-Create a premium cozy garage interior.
+Create an empty premium cozy garage background for a configurable vehicle and gear designer.
 
 STYLE LOCK:
-Premium cozy modern lifestyle aesthetic.
-Semi-isometric 3D render.
-Front-facing room perspective with slight top-down angle.
-Consistent camera height.
-Soft global illumination.
-Warm cinematic lighting.
-Soft realistic shadows.
-Clean modern materials.
-IKEA planner + Sims + Apple-like premium visualization.
-Stylized realistic render, not photorealistic.
-Consistent object scale and proportions.
-Minimal visual noise.
-No people.
-No text.
-No logo.
-No watermark.
-Export-ready.
+[paste global style lock]
 
 ROOM TYPE:
-Modern garage lifestyle scene with vehicle and gear.
+Modern garage lifestyle scene with vehicle and gear placement zones.
 
 SCENE:
-- scooter or sports car
-- tool cabinet and wall storage
-- helmet display
-- gear racks
 - polished concrete floor
+- clean wall storage zones
 - warm industrial lighting
-- clean technical styling
+- subtle technical styling
+- empty central vehicle zone
+- empty side zones for helmet, tools, storage, and accessories
 
 CAMERA:
 Front-facing semi-isometric room view.
@@ -749,185 +365,117 @@ Slight top-down angle.
 16:9 landscape composition.
 
 LIGHTING:
-Warm practical light mixed with soft ambient illumination.
+Warm practical industrial light mixed with soft ambient illumination.
 
 IMPORTANT:
-The room must feel immersive and premium.
-Objects should already be naturally placed.
-Composition must leave enough negative space for future UI overlays.
+No scooter.
+No car.
+No motorcycle.
+No helmet.
+No tools.
+No storage cabinet.
+No bags or floor accessories.
+Leave clear negative space for layered object assets.
 No people.
 No text.
 No logo.
 No watermark.
 ```
 
-## 15. Garage Vehicle Variants
+## 10. Garage Vehicle Assets
+
+Save to:
+
+- `public/assets/objects/garage/main-vehicle/main-scooter.png`
+- `public/assets/objects/garage/main-vehicle/main-car.png`
+- `public/assets/objects/garage/main-vehicle/main-motorcycle.png`
+- `public/assets/objects/garage/secondary-vehicle/secondary-scooter.png`
+
+Create `public/assets/objects/garage/secondary-vehicle/secondary-none.png` separately as a fully transparent blank PNG.
 
 ```text
-Generate 5 premium garage vehicle variations for a cozy garage configurator.
+Generate 4 isolated garage vehicle assets for a modern garage configurator.
 
 STYLE LOCK:
-Premium cozy modern lifestyle aesthetic.
-Semi-isometric 3D render.
-Front-facing room perspective with slight top-down angle.
-Consistent camera height.
-Soft global illumination.
-Warm cinematic lighting.
-Soft realistic shadows.
-Clean modern materials.
-IKEA planner + Sims + Apple-like premium visualization.
-Stylized realistic render, not photorealistic.
-Consistent object scale and proportions.
-Minimal visual noise.
-No people.
-No text.
-No logo.
-No watermark.
-Export-ready.
+[paste global style lock]
 
-OBJECT CATEGORY:
-Garage vehicles.
+Use the garage empty room as the perspective and lighting reference.
 
 VARIATIONS:
-- premium scooter
-- compact city car
-- touring motorcycle
-- sports coupe
-- classic cafe racer
+- main-scooter: premium modern scooter for Bali daily mobility
+- main-car: compact city car with tidy premium proportions
+- main-motorcycle: touring motorcycle with gear-forward presence
+- secondary-scooter: smaller secondary scooter, matching the main scooter style
 
 REQUIREMENTS:
-- use identical camera angle
-- use identical lighting direction
-- use identical scale
-- match semi-isometric garage perspective
-- transparent background
-- object only
-- no floor
-- no text
-- no watermark
-```
-
-## 16. Garage Gear Assets
-
-```text
-Create isolated premium garage gear assets.
-
-STYLE LOCK:
-Premium cozy modern lifestyle aesthetic.
-Semi-isometric 3D render.
-Front-facing room perspective with slight top-down angle.
-Consistent camera height.
-Soft global illumination.
-Warm cinematic lighting.
-Soft realistic shadows.
-Clean modern materials.
-IKEA planner + Sims + Apple-like premium visualization.
-Stylized realistic render, not photorealistic.
-Consistent object scale and proportions.
-Minimal visual noise.
-No people.
-No text.
-No logo.
-No watermark.
-Export-ready.
-
-OBJECT TYPE:
-Garage gear assets.
-
-OUTPUT:
-Generate 6 gear variations:
-- matte black helmet
-- pair of helmets
-- tool cabinet
-- wall tool rack
-- motorcycle jacket
-- travel duffel bag
-
-PERSPECTIVE:
-Semi-isometric front-facing angle matching a cozy garage.
-
-LIGHTING:
-Soft warm studio lighting with subtle industrial reflection.
-
-BACKGROUND:
 Transparent PNG.
-If transparency is unavailable, use pure white background.
-
-IMPORTANT:
 Object only.
 No room.
-No wall.
 No floor.
+No wall.
+Identical camera angle.
+Consistent warm industrial lighting.
+Keep the three main vehicles in a similar visual footprint.
+Secondary scooter should be smaller than main vehicles.
 Centered composition.
-Consistent scale.
-Export-ready.
 No text.
 No watermark.
 ```
 
-## 17. Garage Accessory Assets
+## 11. Garage Gear, Storage, and Accessory Assets
+
+Save to:
+
+- `public/assets/objects/garage/helmet/helmet-1.png`
+- `public/assets/objects/garage/helmet/helmet-2.png`
+- `public/assets/objects/garage/tools/tools-1.png`
+- `public/assets/objects/garage/tools/tools-2.png`
+- `public/assets/objects/garage/storage/storage-1.png`
+- `public/assets/objects/garage/storage/storage-2.png`
+- `public/assets/objects/garage/accessories/garage-accessory-1.png`
+- `public/assets/objects/garage/accessories/garage-accessory-2.png`
 
 ```text
-Create isolated premium garage accessory assets.
+Generate 8 isolated garage gear and accessory assets for a modern garage configurator.
 
 STYLE LOCK:
-Premium cozy modern lifestyle aesthetic.
-Semi-isometric 3D render.
-Front-facing room perspective with slight top-down angle.
-Consistent camera height.
-Soft global illumination.
-Warm cinematic lighting.
-Soft realistic shadows.
-Clean modern materials.
-IKEA planner + Sims + Apple-like premium visualization.
-Stylized realistic render, not photorealistic.
-Consistent object scale and proportions.
-Minimal visual noise.
-No people.
-No text.
-No logo.
-No watermark.
-Export-ready.
+[paste global style lock]
 
-OBJECT TYPE:
-Garage accessories.
+Use the garage empty room as the perspective and lighting reference.
 
-OUTPUT:
-Generate 5 accessory variations:
-- wall shelving unit
-- oil can and tool tray
-- motorcycle helmet shelf
-- street-ready sunglasses
-- tire stack and gear organizer
+VARIATIONS:
+- helmet-1: matte black helmet
+- helmet-2: pair of coordinated helmets
+- tools-1: organized wall tool kit
+- tools-2: polished detailing kit for vehicle maintenance
+- storage-1: warm walnut storage shelf for boxes and gear
+- storage-2: tall closed utility cabinet
+- garage-accessory-1: floor mat and charger bundle
+- garage-accessory-2: premium travel bags
 
-PERSPECTIVE:
-Semi-isometric front-facing angle matching a cozy garage.
-
-LIGHTING:
-Soft warm studio lighting with subtle industrial reflection.
-
-BACKGROUND:
+REQUIREMENTS:
 Transparent PNG.
-If transparency is unavailable, use pure white background.
-
-IMPORTANT:
 Object only.
 No room.
-No wall.
 No floor.
+No wall.
+Identical camera angle within each object type.
+Consistent warm industrial lighting.
 Centered composition.
-Consistent scale.
-Export-ready.
 No text.
 No watermark.
 ```
 
-## Next Steps
+## Final Cleanup Prompt
 
-After these prompts, continue with:
+Use this after generation if an image needs refinement.
 
-1. refinement pass for variants
-2. background removal and asset cleanup
-3. slot-based frontend mapping
-4. preview layer composition
-5. UI-ready scene polish
+```text
+Clean this asset for production use in a layered room configurator.
+
+Keep the object shape, style, camera angle, and lighting.
+Remove all background pixels and edge halos.
+Preserve soft realistic contact shadow only if it works on transparent background.
+Do not add room, wall, floor, text, logo, people, or watermark.
+Export as transparent PNG.
+```
