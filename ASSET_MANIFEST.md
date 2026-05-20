@@ -138,8 +138,9 @@ Used by product cards for the `garage` template.
 - Required scene plate PNGs: 40
 - Existing required room backgrounds: 3
 - Existing required thumbnail crop PNGs: 40
-- Existing required scene plate PNGs: 0
-- Missing scene plate PNGs: 40
+- Existing draft scene plate PNGs: 15
+- Existing production scene plate PNGs: 0
+- Missing production scene plate PNGs: 40
 
 ## Legacy Assets
 
