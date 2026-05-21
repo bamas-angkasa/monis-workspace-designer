@@ -29,10 +29,6 @@ function objectAssetPath(templateId: RoomTemplate["id"], slotId: string, optionI
   return `/assets/objects/${templateId}/${slotId}/${optionId}.png`;
 }
 
-function scenePlatePath(templateId: RoomTemplate["id"], slotId: string, optionId: string) {
-  return `/assets/scene-plates/${templateId}/${slotId}/${optionId}.png`;
-}
-
 function withAssetThumbnails(template: RoomTemplate): RoomTemplate {
   return {
     ...template,
@@ -41,7 +37,7 @@ function withAssetThumbnails(template: RoomTemplate): RoomTemplate {
       availableOptions: slot.availableOptions.map((item) => ({
         ...item,
         thumbnail: objectAssetPath(template.id, slot.id, item.id),
-        layerAsset: scenePlatePath(template.id, slot.id, item.id),
+        layerAsset: objectAssetPath(template.id, slot.id, item.id),
       })),
     })),
   };
@@ -57,7 +53,7 @@ const rawRoomTemplates: RoomTemplate[] = [
     backgroundAsset: "/assets/rooms/workstation_empty.png",
     stylePackages: ["Warm Minimal", "Walnut Executive", "Soft Studio"],
     previewImages: {
-      default: "/assets/previews/workstation/default.png",
+      default: "/assets/rooms/workstation_empty.png",
       "chair-1": "/assets/previews/workstation/chair-1.png",
       "chair-2": "/assets/previews/workstation/chair-2.png",
       "chair-3": "/assets/previews/workstation/chair-3.png",
@@ -146,7 +142,7 @@ const rawRoomTemplates: RoomTemplate[] = [
         name: "Monitor",
         category: "display",
         required: true,
-        defaultOption: "monitor-1",
+        defaultOption: "monitor-2",
         availableOptions: [
           option({
             id: "monitor-1",
@@ -268,7 +264,7 @@ const rawRoomTemplates: RoomTemplate[] = [
     backgroundAsset: "/assets/rooms/living_empty.png",
     stylePackages: ["Cozy Walnut", "Cinema Soft", "Guest Villa"],
     previewImages: {
-      default: "/assets/previews/living-room/default.png",
+      default: "/assets/rooms/living_empty.png",
       "sofa-1-tv-1": "/assets/previews/living-room/sofa-1-tv-1.png",
       "sofa-2-tv-2": "/assets/previews/living-room/sofa-2-tv-2.png",
     },
@@ -446,7 +442,7 @@ const rawRoomTemplates: RoomTemplate[] = [
     backgroundAsset: "/assets/rooms/garage_empty.png",
     stylePackages: ["Scooter Only", "Car + Scooter", "Motorcycle Gear"],
     previewImages: {
-      default: "/assets/previews/garage/default.png",
+      default: "/assets/rooms/garage_empty.png",
       "main-scooter-secondary-none": "/assets/previews/garage/main-scooter-secondary-none.png",
       "main-car-secondary-scooter": "/assets/previews/garage/main-car-secondary-scooter.png",
       "main-motorcycle-secondary-none": "/assets/previews/garage/main-motorcycle-secondary-none.png",

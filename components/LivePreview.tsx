@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import type { ComponentType } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowLeft, Download, Share2 } from "lucide-react";
 import type {
@@ -16,6 +17,14 @@ type LivePreviewProps = {
 };
 
 export function LivePreview({ template, selectedOptionsBySlot }: LivePreviewProps) {
+  const layerOrder: Record<string, number> = {
+    storage: 1,
+    desk: 2,
+    monitor: 3,
+    lamp: 4,
+    plant: 5,
+    chair: 6,
+  };
   const selectedObjects = template.slots
     .map((slot) => ({
       slot,
@@ -29,6 +38,9 @@ export function LivePreview({ template, selectedOptionsBySlot }: LivePreviewProp
       ): item is { slot: typeof template.slots[number]; option: Option } =>
         Boolean(item.option),
     );
+  const orderedObjects = [...selectedObjects].sort(
+    (a, b) => (layerOrder[a.slot.id] ?? 10) - (layerOrder[b.slot.id] ?? 10),
+  );
 
   return (
     <section className="relative overflow-hidden bg-[radial-gradient(circle_at_top,_rgba(231,219,190,0.18),_transparent_28%),linear-gradient(180deg,rgba(247,245,239,0.92),rgba(228,219,204,0.98))] pb-8 pt-10 shadow-[0_32px_100px_rgba(15,18,14,0.18)]">
@@ -79,7 +91,7 @@ export function LivePreview({ template, selectedOptionsBySlot }: LivePreviewProp
           <div className="relative aspect-video overflow-hidden rounded-[30px] border border-white/15 bg-[var(--surface)] shadow-[inset_0_0_80px_rgba(0,0,0,0.12)]">
             <Image
               src={template.backgroundAsset}
-              alt={`${template.name} room background`}
+              alt={`${template.name} room preview`}
               fill
               sizes="100vw"
               className="object-cover"
@@ -87,7 +99,7 @@ export function LivePreview({ template, selectedOptionsBySlot }: LivePreviewProp
             />
 
             <AnimatePresence mode="popLayout">
-              {selectedObjects.map(({ slot, option }, index) => (
+              {orderedObjects.map(({ slot, option }) => (
                 <motion.div
                   key={`${slot.id}-${option.id}`}
                   initial={{ opacity: 0 }}
@@ -95,9 +107,15 @@ export function LivePreview({ template, selectedOptionsBySlot }: LivePreviewProp
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.28, ease: "easeOut" }}
                   className="absolute inset-0"
-                  style={{ zIndex: index + 1 }}
+                  style={{ zIndex: layerOrder[slot.id] ?? 10 }}
                 >
-                  <ObjectLayer src={option.layerAsset} optionName={option.name} />
+                  <ObjectLayer
+                    src={option.layerAsset}
+                    optionName={option.name}
+                    optionId={option.id}
+                    slotId={slot.id}
+                    templateId={template.id}
+                  />
                 </motion.div>
               ))}
             </AnimatePresence>
@@ -112,7 +130,7 @@ function PreviewAction({
   icon: Icon,
   label,
 }: {
-  icon: (props: { size: number }) => JSX.Element;
+  icon: ComponentType<{ size: number }>;
   label: string;
 }) {
   return (
