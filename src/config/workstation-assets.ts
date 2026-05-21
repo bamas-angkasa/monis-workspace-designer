@@ -6,12 +6,18 @@ import type {
 
 const assetRoot = "/assets/workstation";
 
-function createOptions(category: CategoryKey, label: string): AssetOption[] {
+function createOptions(
+  category: CategoryKey,
+  label: string,
+  thumbnailPrefix?: string,
+): AssetOption[] {
   return [1, 2, 3].map((optionNumber) => ({
     id: `${category}-${optionNumber}`,
     name: `${label} ${optionNumber}`,
     src: `${assetRoot}/${category}/${category}-${optionNumber}.png`,
-    thumbnail: `${assetRoot}/${category}/${category}-${optionNumber}.png`,
+    thumbnail: thumbnailPrefix
+      ? `${assetRoot}/${category}/goals/${thumbnailPrefix}-${optionNumber}.png`
+      : `${assetRoot}/${category}/${category}-${optionNumber}.png`,
   }));
 }
 
@@ -19,12 +25,12 @@ export const workstationCategories = [
   {
     key: "desk",
     name: "Desk",
-    options: createOptions("desk", "Walnut Desk"),
+    options: createOptions("desk", "Walnut Desk", "wd"),
   },
   {
     key: "chair",
     name: "Chair",
-    options: createOptions("chair", "Ergonomic Chair"),
+    options: createOptions("chair", "Ergonomic Chair", "wc"),
   },
   {
     key: "monitor",

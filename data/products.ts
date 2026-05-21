@@ -25,8 +25,52 @@ function option(
   };
 }
 
+function workstationAssetPath(slotId: string, optionId: string) {
+  if (slotId === "desk" || slotId === "chair" || slotId === "lamp") {
+    return `/assets/workstation/${slotId}/${optionId}.png`;
+  }
+
+  if (slotId === "monitor") {
+    return `/assets/objects/monitor/${optionId}.png`;
+  }
+
+  if (slotId === "plant") {
+    return "/assets/objects/vase.png";
+  }
+
+  return "";
+}
+
+function workstationThumbnailPath(slotId: string, optionId: string) {
+  if (slotId === "desk") {
+    return `/assets/workstation/desk/goals/wd-${optionId.replace("desk-", "")}.png`;
+  }
+
+  if (slotId === "chair") {
+    return `/assets/workstation/chair/goals/wc-${optionId.replace("chair-", "")}.png`;
+  }
+
+  return workstationAssetPath(slotId, optionId) || "/assets/workstation_empty.png";
+}
+
 function objectAssetPath(templateId: RoomTemplate["id"], slotId: string, optionId: string) {
-  return `/assets/objects/${templateId}/${slotId}/${optionId}.png`;
+  if (templateId === "workstation") {
+    return workstationAssetPath(slotId, optionId);
+  }
+
+  return "";
+}
+
+function objectThumbnailPath(
+  templateId: RoomTemplate["id"],
+  slotId: string,
+  optionId: string,
+) {
+  if (templateId === "workstation") {
+    return workstationThumbnailPath(slotId, optionId);
+  }
+
+  return "/assets/workstation_empty.png";
 }
 
 function withAssetThumbnails(template: RoomTemplate): RoomTemplate {
@@ -36,7 +80,7 @@ function withAssetThumbnails(template: RoomTemplate): RoomTemplate {
       ...slot,
       availableOptions: slot.availableOptions.map((item) => ({
         ...item,
-        thumbnail: objectAssetPath(template.id, slot.id, item.id),
+        thumbnail: objectThumbnailPath(template.id, slot.id, item.id),
         layerAsset: objectAssetPath(template.id, slot.id, item.id),
       })),
     })),
@@ -50,10 +94,10 @@ const rawRoomTemplates: RoomTemplate[] = [
     description:
       "A warm daylight office scene with a fixed desk composition and refined work essentials.",
     category: "Focus room",
-    backgroundAsset: "/assets/rooms/workstation_empty.png",
+    backgroundAsset: "/assets/workstation_empty.png",
     stylePackages: ["Warm Minimal", "Walnut Executive", "Soft Studio"],
     previewImages: {
-      default: "/assets/rooms/workstation_empty.png",
+      default: "/assets/workstation_empty.png",
       "chair-1": "/assets/previews/workstation/chair-1.png",
       "chair-2": "/assets/previews/workstation/chair-2.png",
       "chair-3": "/assets/previews/workstation/chair-3.png",
@@ -261,10 +305,10 @@ const rawRoomTemplates: RoomTemplate[] = [
     description:
       "A cozy media lounge with the TV wall, sofa, table, console, and ambient light locked into a polished composition.",
     category: "Media lounge",
-    backgroundAsset: "/assets/rooms/living_empty.png",
+    backgroundAsset: "/assets/living_empty.png",
     stylePackages: ["Cozy Walnut", "Cinema Soft", "Guest Villa"],
     previewImages: {
-      default: "/assets/rooms/living_empty.png",
+      default: "/assets/living_empty.png",
       "sofa-1-tv-1": "/assets/previews/living-room/sofa-1-tv-1.png",
       "sofa-2-tv-2": "/assets/previews/living-room/sofa-2-tv-2.png",
     },
@@ -439,10 +483,10 @@ const rawRoomTemplates: RoomTemplate[] = [
     description:
       "A controlled vehicle-and-gear setup with presets for scooter, car, and organized storage.",
     category: "Mobility room",
-    backgroundAsset: "/assets/rooms/garage_empty.png",
+    backgroundAsset: "/assets/garage_empty.png",
     stylePackages: ["Scooter Only", "Car + Scooter", "Motorcycle Gear"],
     previewImages: {
-      default: "/assets/rooms/garage_empty.png",
+      default: "/assets/garage_empty.png",
       "main-scooter-secondary-none": "/assets/previews/garage/main-scooter-secondary-none.png",
       "main-car-secondary-scooter": "/assets/previews/garage/main-car-secondary-scooter.png",
       "main-motorcycle-secondary-none": "/assets/previews/garage/main-motorcycle-secondary-none.png",
