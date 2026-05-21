@@ -16,14 +16,45 @@ type LivePreviewProps = {
   selectedOptionsBySlot: SelectedOptionsBySlot;
 };
 
+function workstationFurnitureLayerSrc(
+  selectedOptionsBySlot: SelectedOptionsBySlot,
+) {
+  const deskId = selectedOptionsBySlot.desk;
+  const chairId = selectedOptionsBySlot.chair;
+
+  if (!deskId || !chairId) {
+    return undefined;
+  }
+
+  return `/assets/combinations/workstation/furniture/ew-option-${deskId}-${chairId}.png`;
+}
+
+function workstationScenePlateSrc(slotId: string, optionId: string) {
+  return `/assets/scene-plates/workstation/${slotId}/${optionId}.png`;
+}
+
+function isDefaultConfiguration(
+  template: RoomTemplate,
+  selectedOptionsBySlot: SelectedOptionsBySlot,
+) {
+  return template.slots.every(
+    (slot) => selectedOptionsBySlot[slot.id] === slot.defaultOption,
+  );
+}
+
 export function LivePreview({ template, selectedOptionsBySlot }: LivePreviewProps) {
+  const shouldUseWorkstationReference =
+    template.id === "workstation" &&
+    isDefaultConfiguration(template, selectedOptionsBySlot);
+  const furnitureLayerSrc =
+    template.id === "workstation" && !shouldUseWorkstationReference
+      ? workstationFurnitureLayerSrc(selectedOptionsBySlot)
+      : undefined;
   const layerOrder: Record<string, number> = {
-    storage: 1,
-    desk: 2,
+    storage: 2,
     monitor: 3,
     lamp: 4,
     plant: 5,
-    chair: 6,
   };
   const selectedObjects = template.slots
     .map((slot) => ({
@@ -38,7 +69,15 @@ export function LivePreview({ template, selectedOptionsBySlot }: LivePreviewProp
       ): item is { slot: typeof template.slots[number]; option: Option } =>
         Boolean(item.option),
     );
-  const orderedObjects = [...selectedObjects].sort(
+  const overlayObjects = selectedObjects.filter(
+    ({ slot }) =>
+      !(
+        template.id === "workstation" &&
+        furnitureLayerSrc &&
+        (slot.id === "desk" || slot.id === "chair")
+      ),
+  );
+  const orderedObjects = [...overlayObjects].sort(
     (a, b) => (layerOrder[a.slot.id] ?? 10) - (layerOrder[b.slot.id] ?? 10),
   );
 
@@ -90,13 +129,38 @@ export function LivePreview({ template, selectedOptionsBySlot }: LivePreviewProp
 
           <div className="relative aspect-video overflow-hidden rounded-[30px] border border-white/15 bg-[var(--surface)] shadow-[inset_0_0_80px_rgba(0,0,0,0.12)]">
             <Image
-              src={template.backgroundAsset}
+              src={
+                shouldUseWorkstationReference
+                  ? "/assets/generated/asset-batches/01-workstation-room.png"
+                  : template.backgroundAsset
+              }
               alt={`${template.name} room preview`}
               fill
               sizes="100vw"
               className="object-cover"
               priority
             />
+
+            {!shouldUseWorkstationReference && (
+              <>
+            {furnitureLayerSrc && (
+              <motion.div
+                key={furnitureLayerSrc}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.28, ease: "easeOut" }}
+                className="absolute inset-0"
+                style={{ zIndex: 1 }}
+              >
+                <Image
+                  src={furnitureLayerSrc}
+                  alt=""
+                  fill
+                  sizes="100vw"
+                  className="object-cover"
+                />
+              </motion.div>
+            )}
 
             <AnimatePresence mode="popLayout">
               {orderedObjects.map(({ slot, option }) => (
@@ -109,16 +173,28 @@ export function LivePreview({ template, selectedOptionsBySlot }: LivePreviewProp
                   className="absolute inset-0"
                   style={{ zIndex: layerOrder[slot.id] ?? 10 }}
                 >
-                  <ObjectLayer
-                    src={option.layerAsset}
-                    optionName={option.name}
-                    optionId={option.id}
-                    slotId={slot.id}
-                    templateId={template.id}
-                  />
+                  {template.id === "workstation" ? (
+                    <Image
+                      src={workstationScenePlateSrc(slot.id, option.id)}
+                      alt=""
+                      fill
+                      sizes="100vw"
+                      className="object-cover"
+                    />
+                  ) : (
+                    <ObjectLayer
+                      src={option.layerAsset}
+                      optionName={option.name}
+                      optionId={option.id}
+                      slotId={slot.id}
+                      templateId={template.id}
+                    />
+                  )}
                 </motion.div>
               ))}
             </AnimatePresence>
+              </>
+            )}
           </div>
         </div>
       </div>
